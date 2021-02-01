@@ -182,7 +182,7 @@ Session::get([$key[, $default_value]]);
 
 ## 助手函数
 
-#### json()
+### _json()_
 
 输出 json 字符串的助手函数
 
@@ -196,15 +196,15 @@ json(array<string|int> $rs) : mixed
 $rs : array<string|int>
 ```
 
-#### dump()
+### _dump()_
 
 打印变量数组函数
 
-#### is_ajax() : bool
+### _is_ajax() : bool_
 
 判断当前请求是否为 ajax
 
-#### randomString()
+### _randomString()_
 
 生成随机字符串
 
@@ -220,7 +220,7 @@ $length : int = 10
 
 要生成的字符串长度
 
-#### give_error()
+### _give_error()_
 
 输出错误信息并终止程序
 
@@ -235,29 +235,29 @@ $code : number|string // HTTP 错误码
 $msg : array<string|int>|string // 当前请求判断为 ajax 请求时， $msg 需为数组，为一般请求时，$msg 需为字符串
 ```
 
-#### give_404() : exit
+### _give_404() : exit_
 
 输出 404 信息
 
-#### give_403() : exit
+### _give_403() : exit_
 
 输出 403 信息
 
-#### give_500()
+### _give_500()_
 
 输出服务器 500 信息
 
 ```php
-give_500([string|array<string|int>|bool $arr = false ]) : exit
+give_500([string|array<string> $arr = false ]) : exit
 ```
 
 参数：
 
 ```php
-$arr : string|array<string|int>|bool = false
+$arr : string|array<string|int> = false // 需要输出的信息
 ```
 
-#### get_config()
+### _get_config()_
 
 获取配置信息
 
@@ -271,7 +271,7 @@ get_config([string $key = '' ]) : array<string|int>
 $key : string = '' // 获取的配置信息
 ```
 
-#### put_file_contents()
+### _put_file_contents()_
 
 写入文件助手函数
 
@@ -282,18 +282,18 @@ put_file_contents(string $filename, string $data[, bool $rewrite = true ][, bool
 参数：
 
 ```php
-$filename : string // 文件名称
+$filename : string              // 文件名称
 $data : string                  // 要写入的内容
 $rewrite : bool = true          // 是否覆盖写入
 $auto_touch_file : bool = false // 文件不存在时自动创建
 ```
 
-#### init_array()
+### _init_array()_
 
 比较数组，并返回以后者为基准的数组，如果前者有某个成员，则优先用前者，如果没有，则用后者作为代替值
 
 ```php
-init_array([array<string|int> $array = [] ][, array<string|int> $origin = [] ]) : array<string|int>
+init_array([array<string|int> $array = [] [, array<string|int> $origin = [] ]]) : array<string|int>
 ```
 
 参数：
