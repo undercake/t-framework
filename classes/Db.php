@@ -8,7 +8,7 @@ namespace classes;
 
 class Db
 {
-    protected static $config = [];
+    private $config = [];
     private $tableName = '';
     private $whereStr = '';
     private $whereArr = [];
@@ -27,25 +27,18 @@ class Db
 
     private function __construct($name)
     {
+        $this->config = get_config('database');
         $this->tableName = $name;
-    }
-
-    public static function initConfig()
-    {
-        if (self::$config !== []) return;
-        self::$config = require(LZ_ROOT . DS . 'config' . DS . 'database.php');
     }
 
     public static function table($name)
     {
-        self::initConfig();
         return new Db($name);
     }
 
     public static function name($name)
     {
-        self::initConfig();
-        return self::table(self::$config['prefix'] . $name);
+        return self::table(get_config('database')['prefix'] . $name);
     }
 
     public function whereOptions($condition, $option = 'AND')
@@ -167,34 +160,14 @@ class Db
 
     public function exec()
     {
-        // var_dump($this->sql, $this->ext);
-        return $this->data($this->sql, $this->ext);
-    }
-
-    private function data($sql, $ext)
-    {
-        $dbh = new \PDO('mysql:host=' . Db::$config['host'] . ';dbname=' . Db::$config['dbname'], Db::$config['user'], Db::$config['password']);
-        $dbh->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false); //禁用prepared statements的仿真效果
-        $dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        $dbh->exec("set names 'utf8'");
-        $stmt = $dbh->prepare($sql);
-        $exeres = $stmt->execute($ext);
-        $data = array();
-        if ($exeres) {
-            while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-                $data[] = $row;
-            }
-            if ($this->action == 'insert') {
-                $data = $dbh->lastInsertId();
-            }
-            if (count($data) == 0) {
-                $data = $stmt->rowCount();
-            }
-        } else {
-            $data[0] = $dbh->errorInfo();
-            $data[1] = $stmt->errorInfo();
-        }
-        $dbh = null;
-        return $data;
+        $drivers = ['mysql' => 'MySql'];
+        $driver_name = '\drivers\\' . $drivers[$this->config['type']];
+        $db = new $driver_name([
+            'host' => $this->config['host'],
+            'db_name' => $this->config['db_name'],
+            'user_name' => $this->config['user_name'],
+            'password' => $this->config['password']
+        ]);
+        return $db->exec($this->sql, $this->ext);
     }
 }

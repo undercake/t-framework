@@ -3,10 +3,11 @@
 namespace loader;
 
 define('LZ_ROOT', __DIR__);
-define('CONFIG_ROOT', __DIR__ . DS . 'config');
+define('CONFIG_DIR', LZ_ROOT . DS . 'config' . DS);
+define('CACHE_DIR', LZ_ROOT . DS . 'cache' . DS);
 define('SMARTY_DIR', LZ_ROOT . DS . 'libs' . DS);
 include 'Common.php';
-// require 'vendor/autoload.php';
+
 $load_arr = array();
 
 spl_autoload_register(function ($class) {
