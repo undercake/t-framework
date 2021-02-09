@@ -18,11 +18,6 @@ class Base
     protected $inject = [];
     protected $rights = [];
 
-    function __construct()
-    {
-        echo 'base_start<br />';
-    }
-
     private function get_view()
     {
         if (!$this->smarty) {
@@ -58,9 +53,5 @@ class Base
     {
         $this->get_view();
         $this->smarty->assignFunc($key, $val);
-    }
-    function __destruct()
-    {
-        echo 'base Ended<br />';
     }
 }

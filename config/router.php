@@ -9,6 +9,6 @@ return [
         '/logout'         => 'LogAction/logout'
     ],
     'redirect'            =>  [
-        '/'               => '/login.html'
+        '/'               => '/test.html'
     ]
 ];

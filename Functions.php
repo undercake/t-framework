@@ -54,7 +54,7 @@ function randomString($length = 10)
  * 输出错误信息并终止程序
  * @param number|string $code
  * HTTP错误码
- * @param array|string $msg
+ * @param array<string>|string $msg
  * 当前请求判断为 ajax 请求时， $msg 需为数组，为一般请求时，$msg 需为字符串
  */
 function give_error($code, $msg)
@@ -170,7 +170,7 @@ function get_config($key = '')
 
     static $config = [];
 
-    if ($config !== []) return $config;
+    if ($config !== []) return trim($key) == '' ? $config : (isset($config[$key]) ? $config[$key] : []);
 
     $config_files = ['common', 'cache', 'database', 'router', 'session', 'view'];
     $get_config_arr = [];

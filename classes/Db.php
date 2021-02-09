@@ -163,9 +163,9 @@ class Db
         $drivers = ['mysql' => 'MySql'];
         $driver_name = '\drivers\\' . $drivers[$this->config['type']];
         $db = new $driver_name([
-            'host' => $this->config['host'],
-            'db_name' => $this->config['db_name'],
-            'user_name' => $this->config['user_name'],
+            'host' => $this->config['hostname'],
+            'db_name' => $this->config['dbname'],
+            'user_name' => $this->config['user'],
             'password' => $this->config['password']
         ]);
         return $db->exec($this->sql, $this->ext);
